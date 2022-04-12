@@ -1,0 +1,216 @@
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: .875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #000;
+  text-align: left;
+  min-height: 100%;
+}
+
+body, button, div, fieldset, form, h1, h2, h3, h4, h5, h6, html, input, label, legend, p, select, textarea {
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+}
+
+a:is(:link, :active, :visited).active {
+  color: #343a40;
+}
+
+.navbar a {
+  color: #fff;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  color: #343a40;
+}
+
+#signin:hover {
+  /* background-color: #6c757d!important; */
+  background-color: #DC3545!important;
+  color: #fff;
+}
+
+.signin-enabled {
+  background-color: #28a745!important;
+  color: #fff;
+}
+
+.signup-or-container {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+
+.signup-or-container .signup-border {
+  border-top: 1px solid #ccced7;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.signup-or-container span {
+  display: inline-block;
+  background: #fff;
+  color: #ccced7;
+  position: relative;
+  z-index: 2;
+  padding: 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.choose-account:hover {
+  background: #fff;
+  border: 1px solid #28a745!important;
+  color: #6c757d!important;
+}
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact {
+  padding-top: 5px;
+}
+.contact .info {
+  width: 100%;
+  background: #fff;
+}
+.contact .info i {
+  font-size: 20px;
+  color: #5fcf80;
+  float: left;
+  width: 44px;
+  height: 44px;
+  background: #ecf9f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  transition: all 0.3s ease-in-out;
+}
+.contact .info h4 {
+  padding: 0 0 0 60px;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #37423b;
+}
+.contact .info p {
+  padding: 0 0 0 60px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #657a6d;
+}
+.contact .info .email, .contact .info .phone {
+  margin-top: 40px;
+}
+.contact .info .email:hover i, .contact .info .address:hover i, .contact .info .phone:hover i {
+  background: #5fcf80;
+  color: #fff;
+}
+.contact .php-email-forms {
+  width: 100%;
+  background: #fff;
+}
+.contact .php-email-forms .form-group {
+  padding-bottom: 8px;
+}
+.contact .php-email-forms .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-forms .error-message br + br {
+  margin-top: 25px;
+}
+.contact .php-email-forms .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-forms .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+.contact .php-email-forms .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+.contact .php-email-forms input, .contact .php-email-forms textarea {
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+}
+.contact .php-email-forms input:focus, .contact .php-email-forms textarea:focus {
+  border-color: #5fcf80;
+}
+.contact .php-email-forms input {
+  height: 44px;
+}
+.contact .php-email-forms textarea {
+  padding: 10px 12px;
+}
+.contact .php-email-forms input[type=submit] {
+  background: #5fcf80;
+  border: 0;
+  padding: 10px 35px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+.contact .php-email-forms input[type=submit]:hover {
+  background: #3ac162;
+}
+@-webkit-keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.about-section {
+  padding: 200px;
+  text-align: left;
+  background-color: #474e5d;
+  color: white;
+}

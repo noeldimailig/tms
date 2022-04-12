@@ -78,6 +78,11 @@ define('SYSTEM_DIR', ROOT_DIR . $system_path . DIRECTORY_SEPARATOR);
 define('APP_DIR', ROOT_DIR . $application_folder . DIRECTORY_SEPARATOR);
 define('PUBLIC_DIR', $public_folder);
 
+// Google API configuration
+define('GOOGLE_CLIENT_ID', '333817284330-80t85h7sba8jcvkceqpt5m0dj75o35a3.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET', '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');
+define('GOOGLE_REDIRECT_URL', 'http://localhost/tms/pages/google_account_access');
+
 /*
  * ------------------------------------------------------
  * Setup done? Then Hurray!

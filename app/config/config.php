@@ -80,7 +80,7 @@ $config['ENVIRONMENT']             = 'development';
 | WARNING: You MUST set this value!
 |
 */
-$config['base_url'] 				= '';
+$config['base_url'] 				= 'http://localhost/tms/';
 
 /*
 |--------------------------------------------------------------------------
@@ -91,7 +91,7 @@ $config['base_url'] 				= '';
 | variable to blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -113,7 +113,7 @@ $config['index_page'] = 'index.php';
 | Note: This will NOT disable or override the LavaLust-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload']        = FALSE;
+$config['composer_autoload']        = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,7 +156,7 @@ $config['charset']					= 'UTF-8';
 | This config will be used in the Router Class inside kernel.
 |
 */
-$config['default_controller'] 		= 'Welcome';
+$config['default_controller'] 		= 'Pages';
 $config['default_method'] 			= 'index';
 
 /*
