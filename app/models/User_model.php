@@ -176,7 +176,7 @@ class User_model extends Model {
             'position' => $position
         ];
 
-        $result = $this->db->table('users')->update($data)->where('email' , $email);
+        $result = $this->db->table('users')->where('email' , $email)->update($data);
 
         if($result)
             return true;

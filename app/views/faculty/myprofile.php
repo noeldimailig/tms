@@ -53,7 +53,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active p-3 border" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                     <?php //echo $this->session->userdata('lname'); //var_dump($data); ?>
-                                    <form action="<?php echo site_url('user/update_personal_details'); ?>" class="needs-validation" method="post" id="p-details" enctype="multipart/form-data">
+                                    <form action="<?php echo site_url('account/update_personal_details'); ?>" class="needs-validation" method="post" id="p-details" enctype="multipart/form-data">
                                         <p class="fs-2 mx-3 mb-0">Edit Details</p>
                                         <div id="p-message"></div>
                                         <div class="d-flex align-items-start justify-content-between">
@@ -150,7 +150,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                     </form>
                                 </div>
                                 <div class="tab-pane fade p-3 border" id="nav-account" role="tabpanel" aria-labelledby="nav-account-tab">
-                                    <form class="needs-validation" action="<?php echo site_url('user/update_account_details'); ?>" class="px-3" style="width:922px;height:auto;" method="post" id="a-details">
+                                    <form class="needs-validation" action="<?php echo site_url('account/update_account_details'); ?>" class="px-3" style="width:922px;height:auto;" method="post" id="a-details">
                                         <p class="fs-2 mb-0">Edit Details</p>
                                         <div id="a-message" class="mb-1"></div>
                                         <div class="col-12 d-flex flex-column align-items-center justify-content-center">
