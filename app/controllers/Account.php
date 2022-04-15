@@ -275,40 +275,40 @@ class Account extends Controller {
 		$profile = "";
 		$directory = "profile/";
 
-		// if (isset($_FILES['profile']) || $_FILES['profile'] == UPLOAD_ERR_NO_FILE){
-		// 	if(file_exists($directory . $prev_profile)){
-		// 		$profile = $prev_profile;
-		// 	}else {
-		// 		$ext = pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
+		if (isset($_FILES) || $_FILES['profile'] == UPLOAD_ERR_NO_FILE){
+			if(file_exists($directory . $prev_profile)){
+				$profile = $prev_profile;
+			}else {
+				$ext = pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
 
-		// 		if($ext != "png" || $ext != "jpg" || $ext != "jpeg" || $ext != "JPG" || $ext != "PNG" || $ext != "JPEG") {
-		// 			$msg['msg'] = 'Sorry, file is not a valid image file.';
-		// 			$msg['status'] = false;
+				if($ext != "png" || $ext != "jpg" || $ext != "jpeg" || $ext != "JPG" || $ext != "PNG" || $ext != "JPEG") {
+					$msg['msg'] = 'Sorry, file is not a valid image file.';
+					$msg['status'] = false;
 	
-		// 			echo json_encode($msg);
-		// 			exit;
-		// 		}
+					echo json_encode($msg);
+					exit;
+				}
 	
-		// 		if(move_uploaded_file($_FILES['profile']['tmp_name'], $directory.$_FILES['profile']['name'])){
-		// 			$profile = $_FILES['profile']['name'];
-		// 			unlink($directory.$prev_profile);
-		// 		}else{
-		// 			$msg['msg'] = 'Something went wrong. Please try again';
-		// 			$msg['status'] = false;
-		// 			echo json_encode($msg);
-		// 			exit;
-		// 		}
-		// 	}
-		// }else{
-		// 	$profile = $prev_profile;
-		// 	$msg['msg'] = $profile;
-		// 	$msg['status'] = false;
-		// 	echo json_encode($msg);
-		// 	exit;
-		// }
+				if(move_uploaded_file($_FILES['profile']['tmp_name'], $directory.$_FILES['profile']['name'])){
+					$profile = $_FILES['profile']['name'];
+					unlink($directory.$prev_profile);
+				}else{
+					$msg['msg'] = 'Something went wrong. Please try again';
+					$msg['status'] = false;
+					echo json_encode($msg);
+					exit;
+				}
+			}
+		}else{
+			$profile = $prev_profile;
+			// $msg['msg'] = $profile;
+			// $msg['status'] = false;
+			// echo json_encode($msg);
+			// exit;
+		}
 
 		if($this->User_model->check_email($email)){
-			$result = $this->User_model->update_personal_details($email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate);
+			$result = $this->User_model->update_personal_details($profile, $email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate);
 			
 			if($result){
 				$userdata = array(
