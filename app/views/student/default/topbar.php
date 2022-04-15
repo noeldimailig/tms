@@ -22,7 +22,7 @@
                     </a>
                     <ul>
                         <li><a href="<?php echo site_url("student/myprofile/". encrypt_id($_SESSION['user_id'])); ?>">My Profile</a></li>
-                        <li><a href="<?php echo site_url('user/logout'); ?>">Log Out</a></li>  
+                        <li><a href="<?php echo site_url('account/logout'); ?>">Log Out</a></li>  
                     </ul>
                 </li>
             </ul>

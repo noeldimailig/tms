@@ -100,11 +100,12 @@ class Class_model extends Model {
 	}
 	public function create_ann($cou_id, $user_id, $title, $content, $date_posted){
 		$data = [
-			'cou_ann_id' => $cou_id,
+			'course_id' => $cou_id,
 			'user_id' => $user_id,
 			'title' => $title,
 			'content' => $content,
 			'date_posted' => $date_posted,
+			'date_updated' => $date_posted,
 			'ann_status' => 1
 		];
 
@@ -116,11 +117,12 @@ class Class_model extends Model {
 			return false;
 	}
 	
-	public function post_ann($cou_ann_id) {
-        return $this->db->table('course_announcement')
-						->select('cou_ann_id', 'title', 'content', 'date_posted')
-						->where('cou_ann_id', $cou_ann_id)
-						->get();
+	public function get_ann($user_id, $class_code) {
+        return $this->db->table('course_announcement as ca')
+						->select('ca.cou_ann_id, ca.course_id, ca.user_id, ca.title, ca.content, ca.ann_status, ca.date_posted, ca.date_updated')
+						->join('course as c', 'c.faculty_id = ca.user_id')
+						->where('c.class_code = ? and c.faculty_id = ?', [$class_code, $user_id])
+						->get_all();
     }
 }
 ?>

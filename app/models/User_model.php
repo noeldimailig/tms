@@ -148,8 +148,9 @@ class User_model extends Model {
                         ->get();
     }
 
-    public function update_personal_details($email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate) {
+    public function update_personal_details($profile, $email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate) {
         $data = [
+            'profile' => $profile,
             'fname' => $fname,
             'mname' => $mname,
             'lname' => $lname,

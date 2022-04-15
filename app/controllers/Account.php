@@ -60,8 +60,6 @@ class Account extends Controller {
 		}
 	}
 
-	
-
 	public function register() {
 		$this->call->model('User_model');
 
@@ -86,7 +84,7 @@ class Account extends Controller {
 		
 		$address = $region . ',' . $province . ',' . $city . ',' . $barangay;
 
-		$hash = $this->auth->passwordhash($password);
+		$hash = passwordhash($password);
 
 		$token = mt_rand(11111, 99999);
 
@@ -97,10 +95,12 @@ class Account extends Controller {
 			exit;
 		}
 		if(password_verify($confirm, $hash) == true){
-			$result = $this->auth->register($type, $fname, $mname, $lname, $nameex, $uname, $email, $address, $contact, $gender, $bdate, $designation, $position, $password, $token);
+			$this->call->model('User_model');
+
+			$result = $this->User_model->register($type, $fname, $mname, $lname, $nameex, $uname, $email, $address, $contact, $gender, $bdate, $designation, $position, $password, $token);
 			
 			if($result){
-				$this->auth->set_logged_in($email);
+				set_logged_in($email);
 
 				$id = $this->User_model->get_last_id();
 
@@ -189,9 +189,9 @@ class Account extends Controller {
 		);
 
 		$this->session->unset_userdata($userdata);
-		$this->auth->set_logged_out();
+		set_logged_out();
 
-		redirect('user/login');
+		redirect('pages/login');
 	}
 	
 	public function send_code($email, $token) {
@@ -226,7 +226,7 @@ class Account extends Controller {
 				if($signup){
 					redirect($_SESSION['user_type'].'/index');
 				}else {
-					redirect('user/choose');
+					redirect('pages/choose');
 				}
 			}
 		} else{
@@ -248,7 +248,7 @@ class Account extends Controller {
 				if($signin){
 					redirect($user_type.'/index');
 				}else {
-					redirect('user/login');
+					redirect('pages/login');
 				}
 			}
 		}
@@ -275,40 +275,40 @@ class Account extends Controller {
 		$profile = "";
 		$directory = "profile/";
 
-		// if (isset($_FILES['profile']) || $_FILES['profile'] == UPLOAD_ERR_NO_FILE){
-		// 	if(file_exists($directory . $prev_profile)){
-		// 		$profile = $prev_profile;
-		// 	}else {
-		// 		$ext = pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
+		if (isset($_FILES) || $_FILES['profile'] == UPLOAD_ERR_NO_FILE){
+			if(file_exists($directory . $prev_profile)){
+				$profile = $prev_profile;
+			}else {
+				$ext = pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
 
-		// 		if($ext != "png" || $ext != "jpg" || $ext != "jpeg" || $ext != "JPG" || $ext != "PNG" || $ext != "JPEG") {
-		// 			$msg['msg'] = 'Sorry, file is not a valid image file.';
-		// 			$msg['status'] = false;
+				if($ext != "png" || $ext != "jpg" || $ext != "jpeg" || $ext != "JPG" || $ext != "PNG" || $ext != "JPEG") {
+					$msg['msg'] = 'Sorry, file is not a valid image file.';
+					$msg['status'] = false;
 	
-		// 			echo json_encode($msg);
-		// 			exit;
-		// 		}
+					echo json_encode($msg);
+					exit;
+				}
 	
-		// 		if(move_uploaded_file($_FILES['profile']['tmp_name'], $directory.$_FILES['profile']['name'])){
-		// 			$profile = $_FILES['profile']['name'];
-		// 			unlink($directory.$prev_profile);
-		// 		}else{
-		// 			$msg['msg'] = 'Something went wrong. Please try again';
-		// 			$msg['status'] = false;
-		// 			echo json_encode($msg);
-		// 			exit;
-		// 		}
-		// 	}
-		// }else{
-		// 	$profile = $prev_profile;
-		// 	$msg['msg'] = $profile;
-		// 	$msg['status'] = false;
-		// 	echo json_encode($msg);
-		// 	exit;
-		// }
+				if(move_uploaded_file($_FILES['profile']['tmp_name'], $directory.$_FILES['profile']['name'])){
+					$profile = $_FILES['profile']['name'];
+					unlink($directory.$prev_profile);
+				}else{
+					$msg['msg'] = 'Something went wrong. Please try again';
+					$msg['status'] = false;
+					echo json_encode($msg);
+					exit;
+				}
+			}
+		}else{
+			$profile = $prev_profile;
+			// $msg['msg'] = $profile;
+			// $msg['status'] = false;
+			// echo json_encode($msg);
+			// exit;
+		}
 
 		if($this->User_model->check_email($email)){
-			$result = $this->User_model->update_personal_details($email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate);
+			$result = $this->User_model->update_personal_details($profile, $email, $fname, $mname, $lname, $nameex, $address, $contact, $gender, $bdate);
 			
 			if($result){
 				$userdata = array(
@@ -344,7 +344,7 @@ class Account extends Controller {
 		if($result){
 			if($password == "")
 				$password = $result['password'];
-			else $password = $this->auth->passwordhash($password);
+			else $password = passwordhash($password);
 				
 			$update = $this->User_model->update_account_details($email, $password, $username, $salutation, $position);
 			

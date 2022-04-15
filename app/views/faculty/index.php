@@ -77,12 +77,10 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 </nav>    
                                 <div class="tab-content w-100" id="nav-tabContent">
                                     <div class="tab-pane fade show active p-3 border" id="nav-announcement" role="tabpanel" aria-labelledby="nav-announcement-tab">
-                                       <div>
-                                            <div class="d-flex align-items-center justify-content-between border border-secondary  rounded p-3 mb-3">
-                                                <p class="m-0">Create announcement</p>
-                                                <div class="btn-group pull-right" role="group" aria-label="Basic mixed styles example" style="">
-                                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#c-announcement">Post Announcements</button>
-                                                </div>
+                                        <div class="d-flex align-items-center justify-content-between border border-secondary  rounded p-3 mb-3">
+                                            <p class="m-0">Create announcement</p>
+                                            <div class="btn-group pull-right" role="group" aria-label="Basic mixed styles example" style="">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#c-announcement">Post Announcements</button>
                                             </div>
                                         </div>
                                         <div class="list-group" id="created-announcement">
@@ -90,21 +88,19 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                     <div class="tab-pane fade p-3 border" id="nav-activity" role="tabpanel" aria-labelledby="nav-activity-tab">
-                                        <div class="list-group">
-                                            <a href="#" class="list-group-item list-group-item-action">
-                                                <div>
-                                                    <h4 class="mb-0">Noel Dimailig</h4>
-                                                    <span class="text-mute mt-0"> <i class="fa fa-clock-o"></i> 30 mins ago</span>
-                                                </div>
-                                                <br>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus purus in massa tempor nec feugiat nisl pretium fusce. A erat nam at lectus urna duis convallis. Amet mattis vulputate enim nulla aliquet. Quam pellentesque nec nam aliquam sem et. Congue quisque egestas diam in arcu cursus euismod. Elementum sagittis vitae et leo duis ut diam quam.</p>
-                                                <i class="fa fa-comments ms-3"></i> <span>Comments</span> 500 
-                                            </a>
+                                        <div class="d-flex align-items-center justify-content-between border border-secondary  rounded p-3 mb-3">
+                                            <p class="m-0">Assign Activity</p>
+                                            <div class="btn-group pull-right" role="group" aria-label="Basic mixed styles example" style="">
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#c-activity">Assign Activity</button>
+                                            </div>
+                                        </div>
+                                        <div class="list-group" id="created-activity">
+                                            
                                         </div>
                                     </div>
                                 </div>
                             
-                            <!-- Modal Project -->
+                                <!-- Modal Announcement -->
                                 <div class="modal fade" id="c-announcement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -126,6 +122,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                                     <div class="col-md-12 mb-2">
                                                         <label for="c_title" class="form-label">Title</label>
                                                         <input type="hidden" class="form-control form-control-sm" name="c_user_id" id="c_user_id" value="<?= encrypt_id($data['faculty']['user_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_course_id" id="c_course_id" value="<?= encrypt_id($class['course_id']); ?>">
                                                         <input type="hidden" class="form-control form-control-sm" name="c_user_name" id="c_user_name" value="<?= $data['faculty']['fname']. ' '.$data['faculty']['lname']; ?>">
                                                         <input type="text" class="form-control form-control-sm" name="c_title" id="c_title" placeholder="" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
                                                     </div>
@@ -142,8 +139,48 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                         </div>
                                     </div>
                                 </div>
+                                <!-- Modal Activity -->
+                                <div class="modal fade" id="c-activity" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="<?= site_url('classes/create_act'); ?>" class="needs-validation" method="post" id="activity">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Assign Activity</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="c-message"></div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label for="c_course_id" class="form-label">Class</label>
+                                                        <select class="form-control" id="c_course_id" name="c_course_id">
+                                                            <?php foreach($data['classes'] as $class): ?>
+                                                                <option value="<?php echo $class['course_id'];?>"><?= $class['section']. ' - ' .$class['room'];?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label for="c_title" class="form-label">Title</label>
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_user_id" id="c_user_id" value="<?= encrypt_id($data['faculty']['user_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_course_id" id="c_course_id" value="<?= encrypt_id($class['course_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_user_name" id="c_user_name" value="<?= $data['faculty']['fname']. ' '.$data['faculty']['lname']; ?>">
+                                                        <input type="text" class="form-control form-control-sm" name="c_title" id="c_title" placeholder="" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label for="c_content" class="form-label">Content</label>
+                                                        <textarea name="c_content" id="c_content" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <input type="submit" class="btn btn-success" id="submit" name="submit" value="Post">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> 
                             </div> 
                         </div>
+
                         <!-- <div class="col-lg-3 col-md-3 bg-white p-3"> -->
                             <!-- <div class="card mb-5 bg-white border border-light">
                                 <div class="d-flex justify-content-between p-3 py-2 pb-0 mb-2 border-bottom border-secondary bg-white">

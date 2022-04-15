@@ -13,7 +13,7 @@ class Classes extends Controller {
 		$this->call->model('Class_model');
 		$this->call->model('User_model');
 
-		$data['announcement'] = $this->Class_model->post_ann( decrypt_id($user_id));
+		$data['announcement'] = $this->Class_model->get_ann(decrypt_id($user_id), $class_code);
 		$data['class'] = $this->Class_model->get_class($class_code, decrypt_id($user_id));
 		$data['faculty'] = $this->User_model->get_user('Faculty', decrypt_id($user_id));
 		$data['accepted'] = $this->Class_model->get_students($class_code, 1);

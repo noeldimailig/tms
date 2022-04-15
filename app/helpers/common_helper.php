@@ -19,6 +19,15 @@
         }
     }
 
+    if ( ! function_exists('set_logged_out'))
+    { 
+        function set_logged_out() {
+            $LAVA =& lava_instance();
+            $LAVA->session->unset_userdata(array('loggedin', 'username'));
+            $LAVA->session->sess_destroy();
+        }
+	}
+
     if ( ! function_exists('check_login_user'))
     {
         function check_login_user()
