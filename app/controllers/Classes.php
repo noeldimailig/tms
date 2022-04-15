@@ -120,11 +120,13 @@ class Classes extends Controller {
 			$msg['content'] = $content;
 			$msg['date'] = $date_posted;
 			$msg['name'] = $name;
+			$msg['error'] = false;
             echo json_encode($msg);
             exit;
         } else{
             $msg['ann_status'] = false;
             $msg['msg'] = "Announcement creation failed. Please try again.";
+			$msg['error'] = true;
             echo json_encode($msg);
             exit;
 		}

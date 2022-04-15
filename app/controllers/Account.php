@@ -44,7 +44,7 @@ class Account extends Controller {
 				exit;
 			}else {
 				$this->session->set_userdata($userdata);
-				$this->auth->set_logged_in($result['username']);
+				set_logged_in($result['username']);
 				$msg['msg'] = "Logged in successful.";
 				$msg['error'] = false;
 				$msg['role'] = $type;
@@ -272,39 +272,25 @@ class Account extends Controller {
 		$bdate = $this->io->post('bdate');
 		$address = $region . ',' . $province . ',' . $city . ',' . $barangay;
 		$prev_profile = $this->io->post('p-profile');
-		$profile = "";
-		$directory = "profile/";
+		
+		$profile = $_FILES['file']['name'];
 
-		if (isset($_FILES) || $_FILES['profile'] == UPLOAD_ERR_NO_FILE){
-			if(file_exists($directory . $prev_profile)){
-				$profile = $prev_profile;
-			}else {
-				$ext = pathinfo($_FILES['profile']['name'], PATHINFO_EXTENSION);
-
-				if($ext != "png" || $ext != "jpg" || $ext != "jpeg" || $ext != "JPG" || $ext != "PNG" || $ext != "JPEG") {
-					$msg['msg'] = 'Sorry, file is not a valid image file.';
-					$msg['status'] = false;
-	
-					echo json_encode($msg);
-					exit;
-				}
-	
-				if(move_uploaded_file($_FILES['profile']['tmp_name'], $directory.$_FILES['profile']['name'])){
-					$profile = $_FILES['profile']['name'];
-					unlink($directory.$prev_profile);
-				}else{
-					$msg['msg'] = 'Something went wrong. Please try again';
-					$msg['status'] = false;
-					echo json_encode($msg);
-					exit;
-				}
+		if ($profile != '') {
+			if (isset($_FILES['file'])) {
+				$upload = new Upload($_FILES['file']);
+				$upload->is_image();
+				$upload->max_size(20);
+				$upload->set_dir('profile');
+		
+				if ($upload->do_upload()) {
+					$profile = $upload->get_name();
+					$dir = $upload->get_dir();
+					if(file_exists($dir.$prev_profile))
+						unlink($dir.$prev_profile);
+				} 
 			}
-		}else{
+		}else {
 			$profile = $prev_profile;
-			// $msg['msg'] = $profile;
-			// $msg['status'] = false;
-			// echo json_encode($msg);
-			// exit;
 		}
 
 		if($this->User_model->check_email($email)){
@@ -314,6 +300,7 @@ class Account extends Controller {
 				$userdata = array(
 					'fname' => $fname,
 					'lname' => $lname,
+					'user_profile' => $profile
 				);
 				$this->session->unset_userdata($userdata);
 				$this->session->set_userdata($userdata);
@@ -323,8 +310,8 @@ class Account extends Controller {
 				echo json_encode($msg);
 				exit;
 			}else{
-				$msg['msg'] = "Update failed. Please check all the information you provided!";
-				$msg['error'] = true;
+				$msg['msg'] = "Seems like there is nothing to update in the info given!";
+				$msg['error'] = "info";
 				echo json_encode($msg);
 				exit;
 			}
@@ -350,7 +337,8 @@ class Account extends Controller {
 			
 			if($update){
 				$userdata = array(
-					'user_email' => $username
+					'user_email' => $email,
+					'username' => $username
 				);
 				$this->session->unset_userdata($userdata);
 				$this->session->set_userdata($userdata);
@@ -359,11 +347,16 @@ class Account extends Controller {
 				echo json_encode($msg);
 				exit;
 			}else{
-				$msg['msg'] = "Update failed. Please check all the information you provided!";
-				$msg['error'] = true;
+				$msg['msg'] = "Seems like there is nothing to be updated for all the information you provided!";
+				$msg['error'] = "info";
 				echo json_encode($msg);
 				exit;
 			}
+		}else{
+			$msg['msg'] = "Something went wrong! Please try again.";
+			$msg['error'] = true;
+			echo json_encode($msg);
+			exit;
 		}
 	}
 }

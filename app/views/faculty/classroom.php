@@ -64,7 +64,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                         <div id="join-requests" class="d-flex flex-column justify-content-center align-items-start">
                                             <div class="d-flex w-100 flex-row justify-content-between align-items-center py-2 <?php if($data['joining'] != null) : ?> echo border-bottom mb-3 <?php endif; ?>">
                                                 <p class="fs-6 m-0">Class Joining Requests</p>
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                <i class="fas fa-ellipsis-vertical"></i>
                                             </div>
                                             <div id="accept-status"></div>
                                             <?php foreach($data['joining'] as $student) : ?>

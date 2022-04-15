@@ -124,5 +124,13 @@ class Class_model extends Model {
 						->where('c.class_code = ? and c.faculty_id = ?', [$class_code, $user_id])
 						->get_all();
     }
+
+	public function get_all_ann($user_id) {
+        return $this->db->table('course_announcement as ca')
+						->select('ca.cou_ann_id, ca.course_id, ca.user_id, c.class_code, ca.title, ca.content, ca.ann_status, ca.date_posted, ca.date_updated')
+						->inner_join('course as c', 'ca.course_id = c.course_id')
+						->where('c.faculty_id', $user_id)
+						->get_all();
+    }
 }
 ?>

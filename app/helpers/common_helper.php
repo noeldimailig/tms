@@ -56,8 +56,8 @@
     if ( ! function_exists('check_dp'))
     {
         function check_dp($dp) {
-            $path = BASE_URL . PUBLIC_DIR . '/assets/img/' . $dp;
-            if(strlen($dp) < 10)
+            $path = BASE_URL . 'profile/' . $dp;
+            if(strlen($dp) < 50)
                 return $path;
             else
                 return $dp;

@@ -139,7 +139,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                                 <div class="col-12 mb-2">
                                                     <label for="profile" class="form-label mb-0">Profile Picture</label>
                                                     <input type="hidden" name="p-profile" class="form-control" id="p-profile" value="<?= $data['profile']; ?>">
-                                                    <input type="file" class="form-control form-control-lg mb-0" name="profile" id="profile">
+                                                    <input type="file" class="form-control form-control-lg mb-0" name="file" id="file">
                                                 </div> 
                                                 <div class="col-12 d-flex align-items-end justify-content-end mb-2 w-100">
                                                     <a href="<?= site_url('faculty/index'); ?>" class="btn btn-secondary btn-lg mx-1" role="button">Cancel</a>
