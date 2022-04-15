@@ -8,10 +8,12 @@ class Account extends Controller {
 	}
 
 	public function signin() {
+		$this->call->model('User_model');
+
 		$email = $this->io->post('email');
 		$pass = $this->io->post('password');
 
-		$result = $this->auth->login($email, $pass);
+		$result = $this->User_model->signin($email, $pass);
 
 		if($result){
 			$userdata = array(
@@ -58,8 +60,6 @@ class Account extends Controller {
 		}
 	}
 
-	
-
 	public function register() {
 		$this->call->model('User_model');
 
@@ -84,7 +84,7 @@ class Account extends Controller {
 		
 		$address = $region . ',' . $province . ',' . $city . ',' . $barangay;
 
-		$hash = $this->auth->passwordhash($password);
+		$hash = passwordhash($password);
 
 		$token = mt_rand(11111, 99999);
 
@@ -95,10 +95,12 @@ class Account extends Controller {
 			exit;
 		}
 		if(password_verify($confirm, $hash) == true){
-			$result = $this->auth->register($type, $fname, $mname, $lname, $nameex, $uname, $email, $address, $contact, $gender, $bdate, $designation, $position, $password, $token);
+			$this->call->model('User_model');
+
+			$result = $this->User_model->register($type, $fname, $mname, $lname, $nameex, $uname, $email, $address, $contact, $gender, $bdate, $designation, $position, $password, $token);
 			
 			if($result){
-				$this->auth->set_logged_in($email);
+				set_logged_in($email);
 
 				$id = $this->User_model->get_last_id();
 
@@ -151,7 +153,7 @@ class Account extends Controller {
 		$email = $this->io->post('email');
 		$pass = $this->io->post('password');
 
-		$hash = $this->auth->passwordhash($pass);
+		$hash = passwordhash($pass);
 		$code = mt_rand(11111, 99999);
 
 		$result = $this->User_model->forgot($email, $hash, $code);
@@ -187,9 +189,9 @@ class Account extends Controller {
 		);
 
 		$this->session->unset_userdata($userdata);
-		$this->auth->set_logged_out();
+		set_logged_out();
 
-		redirect('user/login');
+		redirect('pages/login');
 	}
 	
 	public function send_code($email, $token) {
@@ -224,7 +226,7 @@ class Account extends Controller {
 				if($signup){
 					redirect($_SESSION['user_type'].'/index');
 				}else {
-					redirect('user/choose');
+					redirect('pages/choose');
 				}
 			}
 		} else{
@@ -246,7 +248,7 @@ class Account extends Controller {
 				if($signin){
 					redirect($user_type.'/index');
 				}else {
-					redirect('user/login');
+					redirect('pages/login');
 				}
 			}
 		}
@@ -342,7 +344,7 @@ class Account extends Controller {
 		if($result){
 			if($password == "")
 				$password = $result['password'];
-			else $password = $this->auth->passwordhash($password);
+			else $password = passwordhash($password);
 				
 			$update = $this->User_model->update_account_details($email, $password, $username, $salutation, $position);
 			

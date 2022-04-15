@@ -456,7 +456,7 @@ $('#signup-validate').submit(function(e) {
                 setTimeout(function(){
                   $('#message-content').remove();
                   $('#message').hide();
-                  location.replace('http://localhost/otms/user/verify');
+                  location.replace('http://localhost/tms/pages/verify');
                 }, 6000);
                 var today = moment().format('YYYY-MM-DD');
                 $('#fname').val("");
@@ -606,7 +606,7 @@ $('#verify-validate').submit(function(e) {
                 $('#message-content').remove();
                 $('#message').hide();
 
-                location.replace('http://localhost/otms/user/login');
+                location.replace('http://localhost/tms/pages/login');
             }, 5000);
             $('#verify_email').val("");
             $('#verify_code').val("");
@@ -639,7 +639,7 @@ $('#forgot-validate').submit(function(e) {
                 $('#message-content').remove();
                 $('#message').hide();
 
-                location.replace('http://localhost/otms/user/verify');
+                location.replace('http://localhost/tms/pages/verify');
             }, 5000);
             $('#email').val("");
             $('#password').val("");
@@ -674,11 +674,11 @@ $('#signin-validate').submit(function(e) {
                 $('#message').hide();
 
                 if(res.role == "Faculty")
-                location.replace('http://localhost/otms/faculty/index');
+                location.replace('http://localhost/tms/faculty/index');
                 else if(res.role == "Staff")
-                location.replace('http://localhost/otms/staff/index');
+                location.replace('http://localhost/tms/staff/index');
                 else
-                location.replace('http://localhost/otms/student/index');
+                location.replace('http://localhost/tms/student/index');
             }, 5000);
             $('#email').val("");
             $('#password').val("");

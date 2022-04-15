@@ -17,7 +17,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <?php include('default/topbar.php'); ?>
         <main>
             <div class="container" id="main">
-                <?php //var_dump($data['student']); ?>
+            <?php //var_dump($data); ?>
                 <div class="row">
                     <div class="bg-secondary border border-dark rounded-top d-flex flex-column align-items-center justify-content-center mt-4">
                         <img style="width: auto; height: 10rem;" src="<?php echo BASE_URL . PUBLIC_DIR.'/assets/img/no-class.svg';?>" alt="">
@@ -88,7 +88,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-8 mt-3">
+                        <div class="col-lg-6 col-md-8">
                         <div class="bg-white border border-light p-3 mt-3">
                             <div class="d-flex justify-content-between p-3 py-2 pb-0 mb-2 border-bottom border-secondary bg-white">
                                 <p>Announcements</p>
@@ -157,6 +157,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                     </div>
                                 </div>
                             </div>
+                            
                             <?php foreach($data['announcement'] as $announce) : ?>
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action">
@@ -173,20 +174,6 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 </a>
                             </div>
                             <?php endforeach ?>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <div class="d-flex flex-row justify-content-between align-items-center">
-                                        <img class="border border-3 border-success rounded-circle" style="width: 50px; height: 50px;" src="<?= check_dp($data['faculty']['profile']); ?>" alt="">
-                                    </div>
-                                    <div class="" style="">
-                                        <h4 class="mb-0">Noel Dimailig</h4>
-                                        <span class="text-mute mt-0"> <i class="fa fa-clock-o"></i> 30 mins ago</span>
-                                    </div>
-                                    <br>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus purus in massa tempor nec feugiat nisl pretium fusce. A erat nam at lectus urna duis convallis. Amet mattis vulputate enim nulla aliquet. Quam pellentesque nec nam aliquam sem et. Congue quisque egestas diam in arcu cursus euismod. Elementum sagittis vitae et leo duis ut diam quam.</p>
-                                    <i class="fa fa-comments ms-3"></i> <span>Comments</span> 500
-                                </a>
-                            </div>
                         </div>
 
                         <div class="col-lg-3 col-md-4 bg-white mt-3 mb-5">
@@ -225,7 +212,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                             <div id="message"></div>
                             <div class="form-group mb-1">
                                 <label for="code">Course Code</label>
-                                <input type="hidden" class="form-control" name="id" id="id" value="<?php// encrypt_id($_SESSION['user_id']); ?>">
+                                <input type="hidden" class="form-control" name="id" id="id" value="<?php // encrypt_id($_SESSION['user_id']); ?>">
                                 <input type="text" class="form-control" name="code" id="code" placeholder="Course Code">
                             </div>
                             <div class="form-group mb-1">
