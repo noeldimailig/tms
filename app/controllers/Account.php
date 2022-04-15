@@ -8,10 +8,12 @@ class Account extends Controller {
 	}
 
 	public function signin() {
+		$this->call->model('User_model');
+
 		$email = $this->io->post('email');
 		$pass = $this->io->post('password');
 
-		$result = $this->auth->login($email, $pass);
+		$result = $this->User_model->signin($email, $pass);
 
 		if($result){
 			$userdata = array(
@@ -151,7 +153,7 @@ class Account extends Controller {
 		$email = $this->io->post('email');
 		$pass = $this->io->post('password');
 
-		$hash = $this->auth->passwordhash($pass);
+		$hash = passwordhash($pass);
 		$code = mt_rand(11111, 99999);
 
 		$result = $this->User_model->forgot($email, $hash, $code);

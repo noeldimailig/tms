@@ -51,7 +51,7 @@ class User_model extends Model {
             'password' => $newpass
         ];
         if($result){
-            $verify = $this->db->table('users as u')->update($data)->where('u.email', $email);
+            $verify = $this->db->table('users as u')->where('u.email', $email)->update($data);
             if($verify)
                 return true;
             else
