@@ -83,6 +83,11 @@ class Upload
 	 * @var array
 	 */
 	protected $errors = array();
+
+
+
+
+	protected $name = '';
 	 
 
 	/**
@@ -174,10 +179,10 @@ class Upload
 		is_dir_usable($this->dir);
 
 		// Create a unique name if we don't want files overwritten
-		$name = $overwrite ? "$filename.$ext" : $this->unique_filename($this->dir, $filename, $extension);
+		$this->name = $overwrite ? "$filename.$ext" : $this->unique_filename($this->dir, $filename, $extension);
 
 		// Move the file to the correct location
-		return (move_uploaded_file($this->file['tmp_name'], $this->dir . $name)) ? TRUE : FALSE;
+		return (move_uploaded_file($this->file['tmp_name'], $this->dir . $this->name)) ? TRUE : FALSE;
 	}
 
 
@@ -210,6 +215,13 @@ class Upload
 			$x++;
 		}
 		return "$file$x.$ext";
+	}
+
+
+
+	public function get_name()
+	{
+		return $this->name;
 	}
 
 }

@@ -197,7 +197,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
         <div class="modal fade" id="add-class-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="<?php// echo site_url('classes/create'); ?>" method="post" id="create-class">
+                    <form action="<?php echo site_url('classes/create'); ?>" method="post" id="create-class">
                         <div class="modal-header">
                             <h5 class="modal-title" id="update">Create Class</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

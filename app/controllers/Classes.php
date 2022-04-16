@@ -129,5 +129,35 @@ class Classes extends Controller {
             exit;
 		}
 	}
+
+	public function create_act()
+	{
+		$this->call->model('Class_model');
+
+		$cou_id = decrypt_id($this->io->post('course_id'));
+		$title = $this->io->post('title');
+		$desc = $this->io->post('description');
+		$name = $this->io->post('username');
+		$date_posted = date("Y-m-d h:i:s a");
+		$dp = null;
+
+		$result = $this->Class_model->create_ann($cou_id, $user_id, $title, $content, $date_posted);
+
+		if ($_FILES["dp"] != '') {
+			if (isset($_FILES["dp"])) {
+				$this->call->library('upload');
+				$upload = new Upload($_FILES["dp"]);
+				$upload->is_image();
+				$upload->max_size(20);
+				$upload->set_dir('Files/user/');
+
+				if (! $upload->do_upload()) {
+					set_flash_alert('danger', $upload->errors());
+				} else {
+					$dp = $upload->get_name();
+				}
+			}
+		}
+	}
 }
 ?>

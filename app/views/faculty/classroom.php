@@ -64,7 +64,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                         <div id="join-requests" class="d-flex flex-column justify-content-center align-items-start">
                                             <div class="d-flex w-100 flex-row justify-content-between align-items-center py-2 <?php if($data['joining'] != null) : ?> echo border-bottom mb-3 <?php endif; ?>">
                                                 <p class="fs-6 m-0">Class Joining Requests</p>
-                                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                                                <i class="fas fa-ellipsis-vertical"></i>
                                             </div>
                                             <div id="accept-status"></div>
                                             <?php foreach($data['joining'] as $student) : ?>
@@ -103,28 +103,29 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 <div class="modal fade" id="ModalAnnouncement" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Announcement</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="<?php echo site_url('classes/create_ann'); ?>" method="post">
-                                                    <div class="col-md-12 mb-2">
-                                                        <input type="hidden" class="form-control" name="id" id="id" value="<?= encrypt_id($_SESSION['user_id']); ?>">
-                                                        <label for="title" class="form-label">Title</label>
-                                                        <input type="text" class="form-control form-control-sm" name="title" id="title" placeholder="" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
+                                            <form action="<?= site_url('classes/create_ann'); ?>" class="needs-validation" method="post" id="announce">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Announcement</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                <div class="col-md-12 mb-2">
+                                                        <label for="c_title" class="form-label">Title</label>
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_user_id" id="c_user_id" value="<?= encrypt_id($data['faculty']['user_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_course_id" id="c_course_id" value="<?= encrypt_id($class['course_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="c_user_name" id="c_user_name" value="<?= $data['faculty']['fname']. ' '.$data['faculty']['lname']; ?>">
+                                                        <input type="text" class="form-control form-control-sm" name="c_title" id="c_title" placeholder="" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
                                                     </div>
                                                     <div class="col-md-12 mb-2">
                                                         <label for="content" class="form-label">Content</label>
-                                                        <textarea name="content" id="" name="content" id="content" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                                                        <textarea name="c_content" id="c_content" class="form-control form-control-sm" cols="30" rows="5"></textarea>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                         <input type="submit" class="btn btn-success" name="submit" id="submit">
                                                     </div>
-                                                </form>
-                                            </div>
-                                            
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -132,27 +133,52 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 <div class="modal fade" id="ModalProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
+                                        <form action="<?= site_url('classes/create_act'); ?>" class="needs-validation" method="post" id="announce">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Activity</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="" method="post">
                                                     <div class="col-md-12 mb-2">
-                                                        <label for="Title" class="form-label">Title</label>
-                                                        <input type="text" class="form-control form-control-sm" name="Title" id="Title" placeholder="" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
+                                                        <label for="title" class="form-label">Title</label>
+                                                        <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
                                                     </div>
                                                     <div class="col-md-12 mb-2">
-                                                        <label for="Description" class="form-label">Description*</label>
-                                                        <textarea name="Description" id="" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                                                        <label for="description" class="form-label">Description</label>
+                                                        <textarea name="description" id="description" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                                                    </div>
+                                                    <div class="col-12 mb-2">
+                                                        <label for="profile" class="form-label mb-0">Attachment</label>
+                                                        <input type="hidden" name="p-profile" class="form-control" id="p-profile" value="">
+                                                        <input type="file" class="form-control form-control-lg mb-0" name="" id="">
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="day">Due Date</label>
+                                                            <select name="day" id="day" class="form-control col-md-6">
+                                                                <option value="Monday">Monday</option>
+                                                                <option value="Tuesday">Tuesday</option>
+                                                                <option value="Wednesday">Wednesday</option>
+                                                                <option value="Thursday">Thursday</option>
+                                                                <option value="Friday">Friday</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="start">Start</label>
+                                                            <input type="time" class="form-control" name="start" id="start">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="end">End</label>
+                                                            <input type="time" class="form-control" name="end" id="end">
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save</button>
+                                                        <button type="button" class="btn btn-primary" name="submit" id="submit">Save</button>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
-                                            
+                                        </form>
                                         </div>
                                     </div>
                                 </div>
@@ -162,11 +188,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                             <div class="list-group">
                                 <a href="#" class="list-group-item list-group-item-action">
                                     <div class="d-flex flex-row justify-content">
-                                        <img class="border border-3 border-success rounded-circle" style="width: 50px; height: 50px;" src="<?= check_dp($data['faculty']['profile']); ?>" alt="">
+                                        <img class="border border-3 border-success rounded-circle" style="width: 25px; height: 25px;" src="<?= check_dp($data['faculty']['profile']); ?>" alt="">
                                     </div>
                                     <div class="" >
-                                        <h4 class="mb-0"><?= $data['faculty']['fname'] .' '. $data['faculty']['lname']; ?></h4>
-                                        <span class="text-mute mt-0"> <i class="fa fa-clock-o"></i><?= $announce['date_posted']; ?></span>
+                                        <p class="mb-0"><?= $data['faculty']['fname'] .' '. $data['faculty']['lname']; ?></p>
+                                        <span class="text-mute mt-0 fs-6"> <i class="fa fa-clock-o"></i><?= $announce['date_posted']; ?></span>
                                     </div>
                                     <br>
                                     <p><?= $announce['content']; ?></p>
@@ -199,81 +225,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                 </div>   
             </div>  
         </main>
-        <!-- Modal -->
-       <!-- <div class="modal fade" id="add-class-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="<?php //echo site_url('classes/create'); ?>" method="post" id="create-class">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="update">Create Class</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="message"></div>
-                            <div class="form-group mb-1">
-                                <label for="code">Course Code</label>
-                                <input type="hidden" class="form-control" name="id" id="id" value="<?php // encrypt_id($_SESSION['user_id']); ?>">
-                                <input type="text" class="form-control" name="code" id="code" placeholder="Course Code">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label for="description">Description</label>
-                                <input type="text" class="form-control" id="description" name="description" placeholder="Course Description">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label for="units">Units</label>
-                                <input type="text" class="form-control" name="units" id="units" placeholder="No. of Units">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label for="name">Class Name</label>
-                                <input type="name" class="form-control" name="name" id="name" placeholder="Class Name">
-                            </div>
-                            <div class="form-group mb-1">
-                                <label for="section">Section</label>
-                                <input type="text" class="form-control" name="section" id="section" placeholder="Section">
-                            </div>   
-                            <div class="row mb-2">
-                                <div class="form-group col-md-4">
-                                    <label for="day">Select Day</label>
-                                    <select name="day" id="day" class="form-control col-md-6">
-                                        <option value="Monday">Monday</option>
-                                        <option value="Tuesday">Tuesday</option>
-                                        <option value="Wednesday">Wednesday</option>
-                                        <option value="Thursday">Thursday</option>
-                                        <option value="Friday">Friday</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="start">Start</label>
-                                    <input type="time" class="form-control" name="start" id="start">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="end">End</label>
-                                    <input type="time" class="form-control" name="end" id="end">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="provider">Payment Provider</label>
-                                    <select name="provider" id="provider" class="form-control col-md-6">
-                                        <option value="">Provider</option>
-                                        <option value="Paymaya">Paymaya</option>
-                                        <option value="GCash">GCash</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="account">Account No.</label>
-                                    <input type="text" class="form-control" id="account" name="account" placeholder="Account No.">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-success" name="submit" id="submit">
-                        </div> 
-                    </form>
-                </div>
-            </div>
-        </div> -->
+        
         <?php include('default/footer.php'); ?>
         <?= load_js(array('assets/faculty/classes')); ?>
         <script>

@@ -44,7 +44,7 @@ class Account extends Controller {
 				exit;
 			}else {
 				$this->session->set_userdata($userdata);
-				$this->auth->set_logged_in($result['username']);
+				set_logged_in($result['username']);
 				$msg['msg'] = "Logged in successful.";
 				$msg['error'] = false;
 				$msg['role'] = $type;

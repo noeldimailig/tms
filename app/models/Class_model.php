@@ -116,7 +116,6 @@ class Class_model extends Model {
 		else
 			return false;
 	}
-	
 	public function get_ann($user_id, $class_code) {
         return $this->db->table('course_announcement as ca')
 						->select('ca.cou_ann_id, ca.course_id, ca.user_id, ca.title, ca.content, ca.ann_status, ca.date_posted, ca.date_updated')
@@ -124,5 +123,33 @@ class Class_model extends Model {
 						->where('c.class_code = ? and c.faculty_id = ?', [$class_code, $user_id])
 						->get_all();
     }
+	public function create_act($cou_id, $user_id, $act_title, $act_desc, $attach, $date_posted, $date_updated, $due_date){
+		$data = [
+			'course_id' => $cou_id,
+			'user_id' => $user_id,
+			'act_title' => $act_title,
+			'act_desc' => $act_desc,
+			'act_attachments' => $attach,
+			'date_posted' => $date_posted,
+			'date_updated' => $date_updated,
+			'due_date' => $due_date,
+			'act_status' => 1
+		];
+
+		$result = $this->db-table('course_activity')->insert($data);
+
+		if($result)
+			return true;
+		else
+			return false;
+	}
+	public function get_act($user_id, $class_code) {
+        return $this->db->table('course_activity as ca')
+						->select('ca.cou_act_id, ca.course_id, ca.act_title, ca.act_desc, ca.act_attachments, ca.act_status, ca.date_posted, ca.due_date, ca.date_updated')
+						->join('course as c', 'c.cource_id = ca.course_id')
+						->where('c.class_code = ? and c.course_id = ?', [$class_code])
+						->get_all();
+    }
+	
 }
 ?>

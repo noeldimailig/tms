@@ -31,7 +31,7 @@ class User_model extends Model {
 
         $status = ['status' => 1];
         if($result){
-            $verify = $this->db->table('users as u')->update($status)->where($condition);
+            $verify = $this->db->table('users as u')->where($condition)->update($status);
             if($verify)
                 return true;
             else

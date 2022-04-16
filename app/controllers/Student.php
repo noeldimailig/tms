@@ -21,6 +21,14 @@ class Student extends Controller {
 		$this->call->view('student/index', $data);
 	}
 
+	public function myprofile($user_id) {
+		$this->call->model('User_model');
+		$data = $this->User_model->get_user('Student', decrypt_id($user_id));
+
+		$data['address'] = explode(',', $data['address']);
+		$this->call->view('student/myprofile', $data);
+	}
+
 	public function classes($user_id)
 	{
 		$this->call->model('Student_model');
