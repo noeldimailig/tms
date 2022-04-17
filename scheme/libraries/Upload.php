@@ -55,7 +55,7 @@ class Upload
 	 *
 	 * @var array
 	 */
-	protected $default_allowed_files = array('gif', 'jpg', 'jpeg', 'png', 'txt', 'zip', 'rar', 'tar', 'gz', 'mov', 'flv', 'mpg','mpeg', 'mp4', 'wmv', 'avi', 'mp3', 'wav', 'ogg');
+	protected $default_allowed_files = array('pdf','PDF','docx','DOCX','doc','DOC','gif', 'jpg', 'jpeg', 'png', 'txt', 'zip', 'rar', 'tar', 'gz', 'mov', 'flv', 'mpg','mpeg', 'mp4', 'wmv', 'avi', 'mp3', 'wav', 'ogg');
 	/**
 	 * List of allowed file extensions
 	 *
@@ -118,6 +118,11 @@ class Upload
 	public function set_dir($dir)
 	{
 		return $this->dir = $dir . '/';
+	}
+
+	public function get_dir()
+	{
+		return $this->dir;
 	}
 
 	public function max_size($size) {

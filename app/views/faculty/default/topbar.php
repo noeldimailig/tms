@@ -16,7 +16,7 @@
             <!-- <li><a href="<?php //echo site_url('faculty/conference'); ?>">Conference</a></li> -->
             <?php if($this->session->userdata('user_email')) : ?> 
                 <li class="dropdown d-flex flex-row justify-content-center">
-                    <a href="<?php echo site_url('faculty/profile'); ?>">
+                    <a href="<?php echo site_url("faculty/myprofile/". encrypt_id($_SESSION['user_id'])); ?>">
                         <img class="mx-1" src="<?php echo check_dp($this->session->userdata('user_profile')); ?>" alt="" style="width: 20px; height: 20px; border-radius: 50%;">
                         <span><?php if(isset($_SESSION['username'])) echo $_SESSION['username']; else echo $_SESSION['fname'].' '.$_SESSION['lname']; ?></span> <i class="fa-solid fa-caret-down"></i>
                     </a>

@@ -19,7 +19,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
             <div class="px-5 mx-5" id="main">
                 <div class="row mt-5">
                     <div class="col-lg-3 col-md-4 bg-white p-3">
-                        <div class="card mb-5 bg-white border border-light p-3">
+                        <div class="card mb-5 bg-light border border-light p-3">
                             <div class="card-body">
                                 <div class="text-center">
                                     <img class="border border-5 border-success rounded-circle" style="width: 150px; height: 150px;" src="<?= check_dp($data['faculty']['profile']);?>" alt="">
@@ -29,7 +29,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 <div class="mt-3 border-1 border-bottom mb-4">
                                     <div class="d-flex flex-row align-items-between justify-content-between">
                                         <div class="d-flex flex-row align-items-center justify-content-center">
-                                            <i class="fa-solid fa-chalkboard-user fs-4 mb-2"></i>
+                                            <i class="fas fa-chalkboard-user fs-4 mb-2"></i>
                                             <h6 class="text-center px-2">Class</h6>
                                         </div>
                                         <span class="fs-4"><?= $data['total_class']['total']; ?></span>
@@ -38,7 +38,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 <div class="mt-3 border-1 border-bottom mb-4">
                                     <div class="d-flex flex-row align-items-between justify-content-between">
                                         <div class="d-flex flex-row align-items-center justify-content-center">
-                                            <i class="fa-solid fa-users fs-4 mb-2"></i> 
+                                            <i class="fas fa-users fs-4 mb-2"></i> 
                                             <h6 class="text-center px-2">Student</h6>
                                         </div>
                                         <span class="fs-4"><?= $data['total_students']['total']; ?></span>
@@ -65,7 +65,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                         </div> -->
                     </div>
                     <div class="col-lg-9 col-md-6 bg-white p-3">
-                        <div class="bg-white border border-light p-3">
+                        <div class="bg-light">
                             <div class="d-flex flex-column align-items-start justify-content-center p-3 pt-0 bg-white w-100">
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -76,7 +76,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                     </div>
                                 </nav>    
                                 <div class="tab-content w-100" id="nav-tabContent">
-                                    <div class="tab-pane fade show active p-3 border" id="nav-announcement" role="tabpanel" aria-labelledby="nav-announcement-tab">
+                                    <div class="tab-pane fade show active p-3 border rounded" id="nav-announcement" role="tabpanel" aria-labelledby="nav-announcement-tab">
                                         <div class="d-flex align-items-center justify-content-between border border-secondary  rounded p-3 mb-3">
                                             <p class="m-0">Create announcement</p>
                                             <div class="btn-group pull-right" role="group" aria-label="Basic mixed styles example" style="">
@@ -84,7 +84,18 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                             </div>
                                         </div>
                                         <div class="list-group" id="created-announcement">
-                                            
+                                            <?php foreach($data['announcements'] as $announcement) : ?>
+                                                <a class="list-group-item list-group-item-action mb-2 rounded border-top"
+                                                 href="<?= site_url('classes/open/'. encrypt_id($announcement['user_id']) . '/' . $announcement['class_code']); ?>"
+                                                >
+                                                    <div>
+                                                        <h5 class="mb-1"><?= $data['faculty']['fname'] . $data['faculty']['lname']; ?></h5>
+                                                        <span class="text-mute mt-0 fs-6"> <i class="fa fa-clock-o"></i> <?= $announcement['date_posted']; ?></span>
+                                                    </div><br>
+                                                    <p><?= $announcement['content']; ?></p>
+                                                <!-- <i class="fa fa-comments ms-3"></i> <span>Comments</span> 500  -->
+                                                </a>
+                                            <?php endforeach; ?>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade p-3 border" id="nav-activity" role="tabpanel" aria-labelledby="nav-activity-tab">

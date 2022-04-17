@@ -135,29 +135,43 @@ class Classes extends Controller {
 		$this->call->model('Class_model');
 
 		$cou_id = decrypt_id($this->io->post('course_id'));
+		$user_id = decrypt_id($this->io->post('user_id'));
 		$title = $this->io->post('title');
 		$desc = $this->io->post('description');
-		$name = $this->io->post('username');
+		$check = $this->io->post('check');
+		$date = $this->io->post('date');
+		$time = $this->io->post('time');
+		$attachment = $_FILES['attachment']['name'];
+		date_default_timezone_set('Asia/Manila');
 		$date_posted = date("Y-m-d h:i:s a");
-		$dp = null;
 
-		$result = $this->Class_model->create_ann($cou_id, $user_id, $title, $content, $date_posted);
-
-		if ($_FILES["dp"] != '') {
-			if (isset($_FILES["dp"])) {
+		$due_date = $date . ' ' . $time;
+		
+		if ($attachment != '') {
+			if (isset($_FILES['attachment'])) {
 				$this->call->library('upload');
-				$upload = new Upload($_FILES["dp"]);
-				$upload->is_image();
-				$upload->max_size(20);
-				$upload->set_dir('Files/user/');
-
+				$upload = new Upload($_FILES['attachment']);
+				$upload->set_dir('Faculty/Course Materials/');
+				
 				if (! $upload->do_upload()) {
-					set_flash_alert('danger', $upload->errors());
-				} else {
-					$dp = $upload->get_name();
-				}
+					$attachment = $upload->get_name();
+					$result = $this->Class_model->create_act($cou_id, $user_id, $title, $desc, $check, $attachment, $date_posted, $due_date);
+					if($result){
+						$msg['error'] = false;
+						$msg['msg'] = "Activity posted.";
+						echo json_encode($msg);
+						exit;
+					}
+				} 
 			}
 		}
+		else {
+			$msg['error'] = false;
+            $msg['msg'] = "Activity creation failed. Please try again.";
+            echo json_encode($msg);
+            exit;
+		}
+
 	}
 }
 ?>

@@ -489,12 +489,19 @@ $('#signup-validate').submit(function(e) {
 $('#p-details').submit(function(e) {
     e.preventDefault();
 
-    var form = $(this);
-    var url = form.attr('action');
+    var form = $(this)[0];
+    var url = form.getAttribute('action');
+    var formData = new FormData(form);
+    var file = document.getElementById('file').files;
+    formData.append('file', file);
+
     $.ajax({
         url: url,
         type: 'POST',
-        data: form.serialize(),
+        data: formData,
+        contentType: false,
+      cache: false,
+      processData: false,
         success: function(response) {
             var res = JSON.parse(response);
             if(res.error == false) {
@@ -504,7 +511,15 @@ $('#p-details').submit(function(e) {
                   $('#message-content').remove();
                   $('#message').hide();
                   location.reload();
-                }, 6000);
+                }, 4000);
+            }else if(res.error == "info") {
+                $('#p-message').show();
+                  alertInfo('p-message', res.msg);
+                  setTimeout(function(){
+                    $('#message-content').remove();
+                    $('#message').hide();
+                    location.reload();
+                  }, 4000);
             } else {
               $('#p-message').show();
               alertError('p-message', res.msg);
@@ -518,7 +533,7 @@ $('#p-details').submit(function(e) {
 });
 
 $('#announce').submit(function(e) {
-    //e.preventDefault();
+    e.preventDefault();
 
     var form = $(this);
     var url = form.attr('action');
@@ -536,19 +551,44 @@ $('#announce').submit(function(e) {
                     $('#message').hide();
                     location.reload();
                 }, 5000);
-
-                $('#created-announcement').append(
-                    '<li class="list-group-item list-group-item-action">'+
-                        '<div>'+
-                            '<h5 class="mb-1">'+res.name+'</h5>'+
-                            '<span class="text-mute mt-0 fs-6"> <i class="fa fa-clock-o"></i> '+res.date+'</span>'+
-                        '</div><br>'+
-                        '<p>'+res.content+'</p>'+
-                        '<!-- <i class="fa fa-comments ms-3"></i> <span>Comments</span> 500  -->'+
-                    '</li>');
             } else {
               $('#c-message').show();
               alertError('c-message', res.msg);
+              setTimeout(function(){
+                $('#message-content').remove();
+                $('#message').hide();
+              }, 3000);
+            }
+        }
+    });
+});
+$('#activity').submit(function(e) {
+    e.preventDefault();
+
+    var form = $(this)[0];
+    var url = form.getAttribute('action');
+    var formData = new FormData(form);
+    var file = document.getElementById('attachment').files;
+    formData.append('file', file);
+    formData.append('check', $('input[name="check"]:checked').val());
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+            var res = JSON.parse(response);
+            if(res.error == false) {
+                $('#act-message').show();
+                alertSuccess('act-message', res.msg);
+                setTimeout(function(){
+                    $('#message-content').remove();
+                    $('#message').hide();
+                    location.reload();
+                }, 5000);
+            } else {
+              $('#act-message').show();
+              alertError('act-message', res.msg);
               setTimeout(function(){
                 $('#message-content').remove();
                 $('#message').hide();
@@ -576,7 +616,15 @@ $('#a-details').submit(function(e) {
                   $('#message-content').remove();
                   $('#message').hide();
                   location.reload();
-                }, 6000);
+                }, 4000);
+            }else if(res.error == "info") {
+                $('#a-message').show();
+                  alertInfo('a-message', res.msg);
+                  setTimeout(function(){
+                    $('#message-content').remove();
+                    $('#message').hide();
+                    location.reload();
+                  }, 4000);
             } else {
               $('#a-message').show();
               alertError('a-message', res.msg);
@@ -752,6 +800,22 @@ function alertSuccess(form, message) {
         '</svg>' +
         '<div class="alert alert-danger fade show d-flex align-items-center" role="alert">' +
           '<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>' +
+            '<div>' + message + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+}
+
+function alertInfo(form, message) {
+    $('#'+form).append(
+      '<div id="message-content">' +
+        '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">' +
+          '<symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">' +
+            '<path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>' +
+          '</symbol>' +
+        '</svg>' +
+        '<div class="alert alert-info fade show d-flex align-items-center" role="alert">' +
+          '<svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>' +
             '<div>' + message + '</div>' +
         '</div>' +
       '</div>'

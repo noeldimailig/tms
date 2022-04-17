@@ -13,12 +13,13 @@
 <?= load_js(array('assets/js/jquery.validate.min')); ?>
 <?= load_js(array('assets/js/jquery-ui.min')); ?>
 <?= load_js(array('assets/js/moment.min')); ?>
+<?= load_js(array('assets/fontawesome/js/fontawesome.min')); ?>
 <?= load_js(array('assets/js/navigator')); ?>
 <?= load_js(array('assets/js/ph-address-selector/ph-address-selector')); ?>
 <?= load_js(array('assets/js/validate/form')); ?>
 <?//= load_js(array('assets/js/offcanvas')); ?>
 <?= load_js(array('assets/js/custom')); ?>
 <?//= load_js(array('assets/js/dragndrop')); ?>
-<?= load_js(array('assets/faculty/script')); ?>
-<?= load_js(array('assets/faculty/scrollbar')); ?>
+<?//= load_js(array('assets/faculty/script')); ?>
+<?//= load_js(array('assets/faculty/scrollbar')); ?>
 <?= load_js(array('assets/faculty/main')); ?>

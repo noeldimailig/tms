@@ -18,6 +18,7 @@ class Faculty extends Controller {
 		$data['total_students'] = $this->Class_model->count_total_students($user_id);
 		$data['faculty'] = $this->User_model->get_user('Faculty', $user_id);
 		$data['classes'] = $this->Class_model->get_active_classes($user_id);
+		$data['announcements'] = $this->Class_model->get_all_ann($user_id);
 		$this->call->view('faculty/index', $data);
 	}
 

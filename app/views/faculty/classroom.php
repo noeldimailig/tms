@@ -133,50 +133,46 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
                                 <div class="modal fade" id="ModalProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                        <form action="<?= site_url('classes/create_act'); ?>" class="needs-validation" method="post" id="announce">
+                                        <form action="<?= site_url('classes/create_act'); ?>" class="needs-validation" method="post" id="activity">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">Activity</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
+                                                <div id="act-message"></div>
                                                     <div class="col-md-12 mb-2">
                                                         <label for="title" class="form-label">Title</label>
+                                                        <input type="hidden" class="form-control form-control-sm" name="course_id" id="course_id" value="<?= encrypt_id($class['course_id']); ?>">
+                                                        <input type="hidden" class="form-control form-control-sm" name="user_id" id="user_id" value="<?= encrypt_id($data['faculty']['user_id']); ?>">
                                                         <input type="text" class="form-control form-control-sm" name="title" id="title" maxlength="255" size="255" data-toggle="tooltip" data-placement="right" title="Title" required>
                                                     </div>
                                                     <div class="col-md-12 mb-2">
                                                         <label for="description" class="form-label">Description</label>
-                                                        <textarea name="description" id="description" class="form-control form-control-sm" cols="30" rows="5"></textarea>
+                                                        <textarea name="description" id="description" class="form-control" cols="30" rows="5"></textarea>
                                                     </div>
                                                     <div class="col-12 mb-2">
-                                                        <label for="profile" class="form-label mb-0">Attachment</label>
-                                                        <input type="hidden" name="p-profile" class="form-control" id="p-profile" value="">
-                                                        <input type="file" class="form-control form-control-lg mb-0" name="" id="">
+                                                        <label for="attachment" class="form-label mb-0">Attachment</label>
+                                                        <input type="hidden" name="p-attach" class="form-control" id="p-attach">
+                                                        <input type="file" class="form-control form-control-lg mb-0" name="attachment" id="attachment">
                                                     </div>
                                                     <div class="row mb-2">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="day">Due Date</label>
-                                                            <select name="day" id="day" class="form-control col-md-6">
-                                                                <option value="Monday">Monday</option>
-                                                                <option value="Tuesday">Tuesday</option>
-                                                                <option value="Wednesday">Wednesday</option>
-                                                                <option value="Thursday">Thursday</option>
-                                                                <option value="Friday">Friday</option>
-                                                            </select>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="date">Due Date</label>
+                                                            <input type="date" name="date" id="date" class="form-control col-md-6">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="start">Start</label>
-                                                            <input type="time" class="form-control" name="start" id="start">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="end">End</label>
-                                                            <input type="time" class="form-control" name="end" id="end">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="time">Time</label>
+                                                            <input type="time" class="form-control" name="time" id="time">
                                                         </div>
                                                     </div>
+                                                    <!--<div class="col-12 mb-2">
+                                                        <input class="form-check-input" name="check" type="checkbox" value="" id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">Lock Submission</label>
+                                                    </div>-->
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary" name="submit" id="submit">Save</button>
+                                                        <input type="submit" class="btn btn-success" name="submit" id="submit" value="Post">
                                                     </div>
-                                                </div>
                                             </div>
                                         </form>
                                         </div>
